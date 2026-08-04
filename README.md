@@ -75,7 +75,7 @@ python app.py --repo "D:\path\to\repository" --question "这个项目做什么�
 --max-steps  Agent 最大步骤数，允许 1 到 20，默认 8
 ```
 
-当前显式使用 `openai/gpt-oss-120b`，由 Hugging Face 自动选择可用推理提供商。云端模型和提供商的可用性可能变化。
+当前显式使用 `openai/gpt-oss-120b`，并通过 Hugging Face 路由到 Groq 提供商。模型采用 `tool_choice="auto"`，可以按需调用仓库工具，并在信息足够后提交最终答案。云端模型和提供商的可用性可能变化。
 
 ## 测试
 

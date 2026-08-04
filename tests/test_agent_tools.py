@@ -73,8 +73,11 @@ class BuildRepositoryAgentTests(unittest.TestCase):
         self.assertIs(result, expected_agent)
         model_class.assert_called_once_with(
             model_id="openai/gpt-oss-120b",
-            provider="auto",
+            provider="groq",
             token="hf_test_token",
+            temperature=0.2,
+            max_tokens=1_200,
+            tool_choice="auto",
         )
 
         agent_arguments = agent_class.call_args.kwargs

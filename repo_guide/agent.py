@@ -58,7 +58,7 @@ def create_repository_tools(repository_path: str | Path) -> list[Tool]:
 def build_repository_agent(
     repository_path: str | Path,
     model_id: str = DEFAULT_MODEL_ID,
-    provider: str = "auto",
+    provider: str = "groq",
     max_steps: int = 8,
 ) -> ToolCallingAgent:
     """Build a ToolCallingAgent with two repository-scoped read-only tools."""
@@ -66,7 +66,14 @@ def build_repository_agent(
     if not token:
         raise RuntimeError("缺少 HF_TOKEN，请先在当前终端设置 Hugging Face Token")
 
-    model = InferenceClientModel(model_id=model_id, provider=provider, token=token)
+    model = InferenceClientModel(
+        model_id=model_id,
+        provider=provider,
+        token=token,
+        temperature=0.2,
+        max_tokens=1_200,
+        tool_choice="auto",
+    )
     tools = create_repository_tools(repository_path)
 
     return ToolCallingAgent(
